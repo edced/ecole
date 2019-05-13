@@ -59,22 +59,18 @@ while fini == 0:
     
     # DESSIN
     ecran.fill(BLANC)
-        
-    pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
-    pygame.draw.circle(ecran, BLEU, [50,200], 20)
-    pygame.draw.circle(ecran, VERT, [a, b], 10)
-    ecran.blit(image_perso_tournee,[350, 450])
+    
+    #future alien    
+    #pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
+    #pygame.draw.circle(ecran, BLEU, [50,200], 20)
+    
+    
+    
     # pygame.draw.polygon(ecran, ROUGE, [[0,50], [100,0], [100,100]])
     if sens == -1:
-        pygame.draw.polygon(ecran, ROUGE, [
-            [a + 0, 50],
-            [a + 100, 0],
-            [a + 100, 100]])
+        ecran.blit(image_perso_tournee, [a + 0, 400])
     else:
-        pygame.draw.polygon(ecran, ROUGE, [
-            [a + 100, 50],
-            [a + 0, 0],
-            [a + 0, 100]])
+        ecran.blit(image_perso_tournee, [a + 0, 400])
 
     pygame.display.flip()
         
