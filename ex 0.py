@@ -44,17 +44,21 @@ clock = pygame.time.Clock()
 fini = 0
 
 
-compteur_monstre = 0
+compteur_monstre = 1
 
 class Monstre:
     pass
 bibi = Monstre()
 bibi.x = monstre_x
 bibi.y = monstre_y
+bobo = Monstre()
+bobo.x = monstre_x
+bobo.y = monstre_y
 
 les_monstres=list()  # []
 les_monstres.append(bibi)
 
+    
 
 class Etoile:
     pass
@@ -116,7 +120,7 @@ while fini == 0:
         
     elif b < 0:
         b=0
-
+    
     
     compteur_monstre += 1
     if compteur_monstre == 100:
