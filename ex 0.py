@@ -26,6 +26,8 @@ image_perso = pygame.image.load('cessau.png').convert_alpha()
 image_perso_tournee = pygame.transform.rotozoom(image_perso, 180, 0.5)
 monstre = pygame.image.load('monstre.png').convert_alpha()
 monstre_petit = pygame.transform.rotozoom(monstre, 360, 0.09)
+monstre_rouge = pygame.image.load('monstre_rouge.png').convert_alpha()
+monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
 #variable
 a=100
 b=80
@@ -45,6 +47,7 @@ fini = 0
 
 
 compteur_monstre = 1
+compteur_apparition = 1
 
 class Monstre:
     pass
@@ -53,10 +56,11 @@ bibi.x = monstre_x
 bibi.y = monstre_y
 bobo = Monstre()
 bobo.x = monstre_x
-bobo.y = monstre_y
+bobo.y = monstre_y+50
 
 les_monstres=list()  # []
 les_monstres.append(bibi)
+les_monstres.append(bobo)
 
     
 
@@ -93,7 +97,7 @@ for i in range(40):
 
 print(len(les_etoiles))
 
-# DÉBUT
+#DÉBUT
 
 clock = pygame.time.Clock()
 a=600
@@ -122,15 +126,28 @@ while fini == 0:
         b=0
     
     
-    compteur_monstre += 1
-    if compteur_monstre == 100:
-        compteur_monstre = 0
-        monstre_y+=10
+    compteur_apparition += 1
+    if compteur_apparition == 100:
+        m = Monstre()
+        m.x = 50
+        m.y = 0
+        les_monstres.append(m)
+        compteur_apparition=0
     
-    if monstre_y>450:
-        monstre_x+=50
-        monstre_y=0
- 
+    
+    compteur_monstre += 1
+    if compteur_monstre == 25:
+        compteur_monstre = 0
+        
+        for m in les_monstres:
+            m.y+=10
+
+        
+    for m in les_monstres:
+        if m.y>450:
+            m.x+=50
+            m.y=0
+
     
     # DESSIN
     ecran.fill(NOIR)
@@ -178,9 +195,13 @@ while fini == 0:
     else:
         ecran.blit(image_perso_tournee, [a,b])
 
-        ecran.blit(monstre_petit, [monstre_x, monstre_y])
-    pygame.display.flip()
+    for m in les_monstres:
+        if m == bibi:
+            ecran.blit(monstre_petit, [m.x, m.y])
+        else:
+            ecran.blit(monstre_petit_rouge, [m.x, m.y])
+        pygame.display.flip()
         
-    clock.tick(128)
+    clock.tick(60)
         
 pygame.quit()
