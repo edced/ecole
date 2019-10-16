@@ -29,9 +29,11 @@ monstre_petit = pygame.transform.rotozoom(monstre, 360, 0.09)
 monstre_rouge = pygame.image.load('monstre_rouge.png').convert_alpha()
 monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
 #variable
-a=100
+a=600
 b=80
 r=5
+ax=a  # position du missile
+bx=b
 sens=1 
 monstre_x= 10
 monstre_y= 10
@@ -40,7 +42,7 @@ monstre_y= 10
 
 QQQ = 97
 SHIFT = 304
-
+SPACE= 32
 clock = pygame.time.Clock()
 
 fini = 0
@@ -98,15 +100,17 @@ for i in range(40):
 print(len(les_etoiles))
 
 #DÉBUT
-
+r
 clock = pygame.time.Clock()
-a=600
 fini = 0
 while fini == 0:
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             fini = 1
+        elif event.type == pygame.KEYDOWN:
+            print("coucou", event.key)
+            
     
     # TICK
     pressed = pygame.key.get_pressed()
@@ -114,7 +118,7 @@ while fini == 0:
         b = b - r 
     if b < 20:
         b = 20
-    if b > 680:
+    if b > 680:	
         b = 680
     if pressed[100]:
         b = b + r
@@ -124,12 +128,15 @@ while fini == 0:
         
     elif b < 0:
         b=0
-    
+    if pressed[SPACE]:
+        ax-=20
+    if ax<0:
+        ax=a
     
     compteur_apparition += 1
     if compteur_apparition == 100:
         m = Monstre()
-        m.x = 50
+        m.x = 10
         m.y = 0
         les_monstres.append(m)
         compteur_apparition=0
@@ -151,6 +158,9 @@ while fini == 0:
     
     # DESSIN
     ecran.fill(NOIR)
+    
+    if pressed[SPACE]:
+        pygame.draw.rect(ecran, BLANC, [ax, b, 30, 10])    
     
     #future alien    
     #pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
@@ -200,7 +210,8 @@ while fini == 0:
             ecran.blit(monstre_petit, [m.x, m.y])
         else:
             ecran.blit(monstre_petit_rouge, [m.x, m.y])
-        pygame.display.flip()
+    
+    pygame.display.flip()
         
     clock.tick(60)
         
