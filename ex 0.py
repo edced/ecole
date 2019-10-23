@@ -32,8 +32,13 @@ monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
 a=600
 b=80
 r=5
-ax=a  # position du missile
-bx=b
+
+class Missile:
+    pass
+missile = Missile()
+missile.x = a  # position du missile
+missile.y = b
+missile.present = 0
 sens=1 
 monstre_x= 10
 monstre_y= 10
@@ -100,7 +105,6 @@ for i in range(40):
 print(len(les_etoiles))
 
 #DÉBUT
-r
 clock = pygame.time.Clock()
 fini = 0
 while fini == 0:
@@ -110,6 +114,10 @@ while fini == 0:
             fini = 1
         elif event.type == pygame.KEYDOWN:
             print("coucou", event.key)
+            if event.key == SPACE:
+                missile.present = 1
+                missile.x = a
+                missile.y = b
             
     
     # TICK
@@ -128,10 +136,12 @@ while fini == 0:
         
     elif b < 0:
         b=0
-    if pressed[SPACE]:
-        ax-=20
-    if ax<0:
-        ax=a
+    
+    if missile.present == 1:
+        missile.x -= 10
+        
+    if missile.x < 0:
+        missile.present = 0
     
     compteur_apparition += 1
     if compteur_apparition == 100:
@@ -154,13 +164,29 @@ while fini == 0:
         if m.y>450:
             m.x+=50
             m.y=0
-
     
+    corbeille = []
+    for m in les_monstres:
+        if missile.present == 1:
+            x = m.x
+            y = m.y
+            L,H = monstre_petit_rouge.get_width(), monstre_petit_rouge.get_height()
+            bx = missile.x
+            by = missile.y
+            bL, bH = 30, 10
+            if bx > x + L or bx + bL < x or by > y + H or by + bH < y:
+                ...
+            else:
+                corbeille.append(m)
+                missile.present = 0
+    
+    for m in corbeille:
+        les_monstres.remove(m)
+        
     # DESSIN
     ecran.fill(NOIR)
-    
-    if pressed[SPACE]:
-        pygame.draw.rect(ecran, BLANC, [ax, b, 30, 10])    
+    if missile.present == 1:
+        pygame.draw.rect(ecran, BLANC, [missile.x, missile.y, 30, 10]) 
     
     #future alien    
     #pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
@@ -203,16 +229,17 @@ while fini == 0:
     if sens == -1:
         ecran.blit(image_perso_tournee, [a, b])
     else:
-        ecran.blit(image_perso_tournee, [a,b])
+        ecran.blit(image_perso_tournee, [a, b])
 
     for m in les_monstres:
         if m == bibi:
             ecran.blit(monstre_petit, [m.x, m.y])
         else:
             ecran.blit(monstre_petit_rouge, [m.x, m.y])
+            
+    
     
     pygame.display.flip()
-        
     clock.tick(60)
         
 pygame.quit()
