@@ -42,10 +42,9 @@ missile.present = 0
 sens=1 
 monstre_x= 10
 monstre_y= 10
+liste_missiles = []
 
-
-
-QQQ = 97
+QQQ = 113
 SHIFT = 304
 SPACE= 32
 clock = pygame.time.Clock()
@@ -115,9 +114,10 @@ while fini == 0:
         elif event.type == pygame.KEYDOWN:
             print("coucou", event.key)
             if event.key == SPACE:
-                missile.present = 1
-                missile.x = a
-                missile.y = b
+                nouveau_missile = Missile()
+                nouveau_missile.x = a
+                nouveau_missile.y = b
+                liste_missiles.append(nouveau_missile)
             
     
     # TICK
@@ -137,11 +137,15 @@ while fini == 0:
     elif b < 0:
         b=0
     
-    if missile.present == 1:
+    corbeille = []
+    for missile in liste_missiles: #pour chacun des missilie dans la liste missile:
         missile.x -= 10
         
-    if missile.x < 0:
-        missile.present = 0
+        if missile.x < 0:
+            corbeille.append(missile) # supprimer missile
+            
+    for x in corbeille:
+        liste_missiles.remove(x)
     
     compteur_apparition += 1
     if compteur_apparition == 100:
@@ -166,8 +170,9 @@ while fini == 0:
             m.y=0
     
     corbeille = []
+    corbeille_missile = []
     for m in les_monstres:
-        if missile.present == 1:
+        for missile in liste_missiles:
             x = m.x
             y = m.y
             L,H = monstre_petit_rouge.get_width(), monstre_petit_rouge.get_height()
@@ -178,14 +183,16 @@ while fini == 0:
                 ...
             else:
                 corbeille.append(m)
-                missile.present = 0
+                corbeille_missile.append(missile)
     
     for m in corbeille:
         les_monstres.remove(m)
+    for m in corbeille_missile:
+        liste_missiles.remove(m)    
         
     # DESSIN
     ecran.fill(NOIR)
-    if missile.present == 1:
+    for missile in liste_missiles:
         pygame.draw.rect(ecran, BLANC, [missile.x, missile.y, 30, 10]) 
     
     #future alien    
