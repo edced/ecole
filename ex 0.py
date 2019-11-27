@@ -28,11 +28,14 @@ monstre = pygame.image.load('monstre.png').convert_alpha()
 monstre_petit = pygame.transform.rotozoom(monstre, 360, 0.09)
 monstre_rouge = pygame.image.load('monstre_rouge.png').convert_alpha()
 monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
+
+font = pygame.font.SysFont('Calibri', 25)
+
 #variable
 a=600
 b=80
 r=5
-
+score = 0
 class Missile:
     pass
 missile = Missile()
@@ -44,7 +47,7 @@ monstre_x= 10
 monstre_y= 10
 liste_missiles = []
 
-QQQ = 113
+QQQ = 97
 SHIFT = 304
 SPACE= 32
 clock = pygame.time.Clock()
@@ -54,7 +57,7 @@ fini = 0
 
 compteur_monstre = 1
 compteur_apparition = 1
-
+niveau = 0
 class Monstre:
     pass
 bibi = Monstre()
@@ -95,7 +98,7 @@ les_etoiles = []
 #les_etoiles.append(truc)
 #les_etoiles.append(troc)
 
-for i in range(40):
+for i in range(100):
     inconnu = Etoile()
     inconnu.x = randint(0,700)
     inconnu.y = randint(0,500)
@@ -103,7 +106,7 @@ for i in range(40):
 
 print(len(les_etoiles))
 
-#DÉBUT
+#DeBUT
 clock = pygame.time.Clock()
 fini = 0
 while fini == 0:
@@ -119,6 +122,8 @@ while fini == 0:
                 nouveau_missile.y = b
                 liste_missiles.append(nouveau_missile)
             
+    
+    niveau += 10
     
     # TICK
     pressed = pygame.key.get_pressed()
@@ -148,12 +153,22 @@ while fini == 0:
         liste_missiles.remove(x)
     
     compteur_apparition += 1
-    if compteur_apparition == 100:
+    
+    if niveau < 3*5000:
+        compteur_apparition_max = 100
+    elif niveau > 3*5000:
+        compteur_apparition_max = 50
+    elif niveau > 6*5000:
+        compteur_apparition_max = 25
+    else:
+        compteur_apparition_max = 25
+    
+    if compteur_apparition >= compteur_apparition_max:
         m = Monstre()
         m.x = 10
-        m.y = 0
+        m.y = 0        
         les_monstres.append(m)
-        compteur_apparition=0
+        compteur_apparition = 0
     
     
     compteur_monstre += 1
@@ -161,7 +176,14 @@ while fini == 0:
         compteur_monstre = 0
         
         for m in les_monstres:
-            m.y+=10
+            if niveau < 3*5000:
+                m.y += 10
+            elif niveau > 3*5000:
+                m.y += 20
+            elif niveau > 6*5000:
+                m.y += 30
+            else:
+                m.y += 30
 
         
     for m in les_monstres:
@@ -175,7 +197,8 @@ while fini == 0:
         for missile in liste_missiles:
             x = m.x
             y = m.y
-            L,H = monstre_petit_rouge.get_width(), monstre_petit_rouge.get_height()
+            L = monstre_petit_rouge.get_width()
+            H = monstre_petit_rouge.get_height()
             bx = missile.x
             by = missile.y
             bL, bH = 30, 10
@@ -186,9 +209,12 @@ while fini == 0:
                 corbeille_missile.append(missile)
     
     for m in corbeille:
-        les_monstres.remove(m)
+        if m in les_monstres:
+            les_monstres.remove(m)
+            score += 10
     for m in corbeille_missile:
-        liste_missiles.remove(m)    
+        if m in liste_missiles:
+            liste_missiles.remove(m)    
         
     # DESSIN
     ecran.fill(NOIR)
@@ -231,6 +257,20 @@ while fini == 0:
     #pygame.draw.circle(ecran, BLANC, [50,200], 2)
     #pygame.draw.circle(ecran, BLANC, [50,200], 2)
     
+    if niveau < 3*5000:
+        texte = ("niveau 1")
+    elif niveau > 3*5000:
+        texte = ("niveau 2")
+    elif niveau > 6*5000:
+        texte = ("niveau 3")
+    else:
+        texte = ("dernier niveau") 
+    image_niveau = font.render(texte, True, BLANC)
+    ecran.blit(image_niveau, [0, 0])
+    
+    
+    image_score = font.render("Score: " + str(score), True, BLANC)
+    ecran.blit(image_score, [700-125, 0])
     
     # pygame.draw.polygon(ecran, ROUGE, [[0,50], [100,0], [100,100]])
     if sens == -1:
@@ -248,5 +288,7 @@ while fini == 0:
     
     pygame.display.flip()
     clock.tick(60)
-        
+
+...
+
 pygame.quit()
