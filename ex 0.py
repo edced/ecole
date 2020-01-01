@@ -190,6 +190,8 @@ while fini == 0:
         if m.y>450:
             m.x+=50
             m.y=0
+        if m.x > 450:
+            fini=1
     
     corbeille = []
     corbeille_missile = []
@@ -287,8 +289,11 @@ while fini == 0:
     
     
     pygame.display.flip()
-    clock.tick(60)
-
-...
+    clock.tick(1000)
+#endgame
+while fini == 1:
+    texte = ("Tu a perdus")
+    ecran.blit(image_niveau, [250, 250])
+    
 
 pygame.quit()
