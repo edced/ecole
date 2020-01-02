@@ -289,7 +289,7 @@ while fini == 0:
     
     
     pygame.display.flip()
-    clock.tick(1000)
+    clock.tick(60)
 #endgame
 while fini == 1:
     texte = ("Tu a perdus")
