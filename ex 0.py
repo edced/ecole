@@ -46,7 +46,7 @@ sens=1
 monstre_x= 10
 monstre_y= 10
 liste_missiles = []
-
+temps_attente = 1
 QQQ = 97
 SHIFT = 304
 SPACE= 32
@@ -114,6 +114,7 @@ while fini == 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             fini = 1
+        
         elif event.type == pygame.KEYDOWN:
             print("coucou", event.key)
             if event.key == SPACE:
@@ -289,11 +290,18 @@ while fini == 0:
     
     
     pygame.display.flip()
-    clock.tick(60)
+clock.tick(1000000)
 #endgame
+fini = 0
 while fini == 1:
-    texte = ("Tu a perdus")
+    texte_perdu = ("Tu a perdus")
+    mage_perdu = font.render(texte_perdu, True, BLANC)
     ecran.blit(image_niveau, [250, 250])
+    temps_attente += 1
+    
+    if temps_attente > 500000:
+        fini = 1
+        
     
 
 pygame.quit()
