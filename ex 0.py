@@ -52,6 +52,7 @@ SHIFT = 304
 SPACE= 32
 clock = pygame.time.Clock()
 
+
 fini = 0
 
 
@@ -110,6 +111,8 @@ print(len(les_etoiles))
 clock = pygame.time.Clock()
 fini = 0
 while fini == 0:
+    
+    
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -191,7 +194,7 @@ while fini == 0:
         if m.y>450:
             m.x+=50
             m.y=0
-        if m.x > 450:
+        if m.x > 525:
             fini=1
     
     corbeille = []
@@ -224,6 +227,7 @@ while fini == 0:
     for missile in liste_missiles:
         pygame.draw.rect(ecran, BLANC, [missile.x, missile.y, 30, 10]) 
     
+    pygame.draw.rect(ecran, ROUGE, [545, 0, 1, 500])
     #future alien    
     #pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
     
@@ -290,7 +294,7 @@ while fini == 0:
     
     
     pygame.display.flip()
-clock.tick(1000000)
+clock.tick(60)
 #endgame
 fini = 0
 while fini == 1:
