@@ -110,6 +110,7 @@ print(len(les_etoiles))
 #DeBUT
 clock = pygame.time.Clock()
 fini = 0
+perdu = 1
 while fini == 0:
     
     
@@ -117,6 +118,7 @@ while fini == 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             fini = 1
+            perdu = 0
         
         elif event.type == pygame.KEYDOWN:
             print("coucou", event.key)
@@ -218,6 +220,10 @@ while fini == 0:
         if m in les_monstres:
             les_monstres.remove(m)
             score += 10
+        if score >= 2500:
+            gagne=1
+            fini=1
+            perdu = 0
     for m in corbeille_missile:
         if m in liste_missiles:
             liste_missiles.remove(m)    
@@ -294,18 +300,46 @@ while fini == 0:
     
     
     pygame.display.flip()
-clock.tick(60)
+    
+    clock.tick(60)
+
 #endgame
-fini = 0
-while fini == 1:
-    texte_perdu = ("Tu a perdus")
-    mage_perdu = font.render(texte_perdu, True, BLANC)
-    ecran.blit(image_niveau, [250, 250])
-    temps_attente += 1
-    
-    if temps_attente > 500000:
-        fini = 1
+if perdu == 1:
+    fini = 0
+    gagne = 0
+    while fini == 0:
         
-    
+        temps_attente += 1
+        
+        if temps_attente > 500000:
+            fini = 1
+        
+        ecran.fill(NOIR)
+        
+        texte_perdu = ("Tu as perdu")
+        image_perdu = font.render(texte_perdu, True, BLANC)
+        ecran.blit(image_perdu, [300, 250])
+               
+        pygame.display.flip()
+                
+        clock.tick(60)
+
+if gagne == 1:
+    fini = 0
+    while fini == 0:
+        
+        temps_attente += 1
+        if temps_attente > 500000:
+            fini = 1
+        
+        ecran.fill(NOIR)
+        
+        texte_gagne = ("Tu as gagné")
+        image_gagne = font.render(texte_gagne, True, BLANC)
+        ecran.blit(image_gagne, [300, 250])
+               
+        pygame.display.flip()
+                
+        clock.tick(60)    
 
 pygame.quit()
