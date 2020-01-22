@@ -28,7 +28,8 @@ monstre = pygame.image.load('monstre.png').convert_alpha()
 monstre_petit = pygame.transform.rotozoom(monstre, 360, 0.09)
 monstre_rouge = pygame.image.load('monstre_rouge.png').convert_alpha()
 monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
-
+monstre_vert = pygame.image.load('monstre_vert.png').convert_alpha()
+monstre_petit_vert = pygame.transform.rotozoom(monstre_vert, 360, 0.09)
 font = pygame.font.SysFont('Calibri', 25)
 
 #variable
@@ -177,7 +178,7 @@ while fini == 0:
         m = Monstre()
         m.x = 10
         m.y = 0
-        m.vie = randint(1, 2)
+        m.vie = 3
         les_monstres.append(m)
         compteur_apparition = 0
     
@@ -301,9 +302,12 @@ while fini == 0:
         ecran.blit(image_perso_tournee, [a, b])
 
     for m in les_monstres:
-        if m.vie > 1:
+        if m.vie == 3:
+            ecran.blit(monstre_petit_vert, [m.x, m.y])
+        if m.vie == 2:
             ecran.blit(monstre_petit, [m.x, m.y])
-        else:
+        
+        if m.vie == 1:
             ecran.blit(monstre_petit_rouge, [m.x, m.y])
             
     
