@@ -64,9 +64,11 @@ class Monstre:
 bibi = Monstre()
 bibi.x = monstre_x
 bibi.y = monstre_y
+bibi.vie = 2
 bobo = Monstre()
 bobo.x = monstre_x
 bobo.y = monstre_y+50
+bobo.vie = 1
 
 les_monstres=list()  # []
 les_monstres.append(bibi)
@@ -119,6 +121,8 @@ while fini == 0:
         if event.type == pygame.QUIT:
             fini = 1
             perdu = 0
+            gagne = 0
+            
         
         elif event.type == pygame.KEYDOWN:
             print("coucou", event.key)
@@ -172,7 +176,8 @@ while fini == 0:
     if compteur_apparition >= compteur_apparition_max:
         m = Monstre()
         m.x = 10
-        m.y = 0        
+        m.y = 0
+        m.vie = randint(1, 3)
         les_monstres.append(m)
         compteur_apparition = 0
     
@@ -288,11 +293,11 @@ while fini == 0:
     # pygame.draw.polygon(ecran, ROUGE, [[0,50], [100,0], [100,100]])
     if sens == -1:
         ecran.blit(image_perso_tournee, [a, b])
-    else:
+    else:  
         ecran.blit(image_perso_tournee, [a, b])
 
     for m in les_monstres:
-        if m == bibi:
+        if m.vie > 1:
             ecran.blit(monstre_petit, [m.x, m.y])
         else:
             ecran.blit(monstre_petit_rouge, [m.x, m.y])
@@ -308,6 +313,10 @@ if perdu == 1:
     fini = 0
     gagne = 0
     while fini == 0:
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fini = 1        
         
         temps_attente += 1
         
@@ -328,8 +337,12 @@ if gagne == 1:
     fini = 0
     while fini == 0:
         
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                fini = 1
+        
         temps_attente += 1
-        if temps_attente > 500000:
+        if temps_attente > 500:
             fini = 1
         
         ecran.fill(NOIR)
