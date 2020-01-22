@@ -177,7 +177,7 @@ while fini == 0:
         m = Monstre()
         m.x = 10
         m.y = 0
-        m.vie = randint(1, 3)
+        m.vie = randint(1, 2)
         les_monstres.append(m)
         compteur_apparition = 0
     
@@ -218,8 +218,12 @@ while fini == 0:
             if bx > x + L or bx + bL < x or by > y + H or by + bH < y:
                 ...
             else:
-                corbeille.append(m)
-                corbeille_missile.append(missile)
+                if m.vie == 1:
+                    corbeille.append(m)
+                    corbeille_missile.append(missile)
+                else:
+                    m.vie-=1
+                    corbeille_missile.append(missile)
     
     for m in corbeille:
         if m in les_monstres:
