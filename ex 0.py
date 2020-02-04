@@ -31,6 +31,47 @@ monstre_petit_rouge = pygame.transform.rotozoom(monstre_rouge, 360, 0.07)
 monstre_vert = pygame.image.load('monstre_vert.png').convert_alpha()
 monstre_petit_vert = pygame.transform.rotozoom(monstre_vert, 360, 0.09)
 font = pygame.font.SysFont('Calibri', 25)
+font_grand = pygame.font.SysFont('Calibri', 50)
+
+# fonction
+def blit_center(surface, image, pos, centre_y=True):
+    x = pos[0]
+    y = pos[1]
+    l = image.get_width()
+    h = image.get_height()
+    if centre_y == True:
+        surface.blit(image, [x-l/2, y-h/2])
+    else:
+        surface.blit(image, [x-l/2, y])      
+
+def text_center(surface, texte, font, couleur, pos, centre_y=True):
+    image = font.render(texte, True, couleur)
+    blit_center(surface, image, pos, centre_y)
+
+
+# écran d'introduction des ennemis
+clock = pygame.time.Clock()
+fini = 0
+while fini == 0:
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            fini = 1
+    
+    ecran.fill(NOIR)
+    
+    ecran.blit(monstre_petit_vert, [100, 400])     
+    ecran.blit(monstre_petit, [100, 300])
+    ecran.blit(monstre_petit_rouge, [100, 200]) 
+    texte_intro = font_grand.render("Space Invader (r)", True, BLANC)    
+    blit_center(ecran, texte_intro, [350, 50])
+    
+    l,h = monstre_petit_vert.get_size()
+    text_center(ecran, "Ceci est un monstre ROUGE", font_grand, BLANC, [100+l+50, 400+h/2])
+                   
+    pygame.display.flip()
+    
+    clock.tick(60)
 
 #variable
 a=600
@@ -254,9 +295,9 @@ while fini == 0:
     #pygame.draw.circle(ecran, BLANC, [les_etoiles[3].x, les_etoiles[3].y], 2)
     
     i = 0
-    while i < len(les_etoiles):
+    while i < len(les_etoiles):  # 4
         pygame.draw.circle(ecran, BLANC, [les_etoiles[i].x, les_etoiles[i].y], 2)
-        i = i + 1
+        i = i + 1   
     #pygame.draw.circle(ecran, BLANC, [les_etoiles[i].x, les_etoiles[i].y], 2)
     #i = i + 1
     #pygame.draw.circle(ecran, BLANC, [les_etoiles[i].x, les_etoiles[i].y], 2)
@@ -265,20 +306,6 @@ while fini == 0:
     #i = i + 1
     #pygame.draw.circle(ecran, BLANC, [les_etoiles[i].x, les_etoiles[i].y], 2)
     #i = i + 1    
-    
-    #pygame.draw.circle(ecran, BLANC, [10,500], 2)
-    #pygame.draw.circle(ecran, BLANC, [30,650], 2)
-    #pygame.draw.circle(ecran, BLANC, [60,250], 2)
-    #pygame.draw.circle(ecran, BLANC, [200,200], 2)
-    #pygame.draw.circle(ecran, BLANC, [300,10], 2)
-    #pygame.draw.circle(ecran, BLANC, [300,200], 2)
-    #pygame.draw.circle(ecran, BLANC, [56,279], 2)
-    #pygame.draw.circle(ecran, BLANC, [262,305], 2)
-    #pygame.draw.circle(ecran, BLANC, [50,200], 2)
-    #pygame.draw.circle(ecran, BLANC, [50,200], 2)
-    #pygame.draw.circle(ecran, BLANC, [50,200], 2)	
-    #pygame.draw.circle(ecran, BLANC, [50,200], 2)
-    #pygame.draw.circle(ecran, BLANC, [50,200], 2)
     
     if niveau < 3*5000:
         texte = ("niveau 1")
