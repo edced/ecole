@@ -50,6 +50,7 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
 
 
 # écran d'introduction des ennemis
+text_blink = 0
 clock = pygame.time.Clock()
 fini = 0
 while fini == 0:
@@ -57,21 +58,41 @@ while fini == 0:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             fini = 1
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            fini = 1
     
     ecran.fill(NOIR)
     
-    ecran.blit(monstre_petit_vert, [100, 400])     
-    ecran.blit(monstre_petit, [100, 300])
-    ecran.blit(monstre_petit_rouge, [100, 200]) 
+    ecran.blit(monstre_petit_vert, [100, 350])     
+    ecran.blit(monstre_petit, [100, 250])
+    ecran.blit(monstre_petit_rouge, [100, 150]) 
     texte_intro = font_grand.render("Space Invader (r)", True, BLANC)    
     blit_center(ecran, texte_intro, [350, 50])
     
     l,h = monstre_petit_vert.get_size()
-    text_center(ecran, "Ceci est un monstre ROUGE", font_grand, BLANC, [100+l+50, 400+h/2])
+    text_center(ecran, "Ceci est un monstre ROUGE, apres 1 tir, il meurt", font, BLANC, [400, 150 + h/2])
+    text_center(ecran, "Ceci est un monstre ORANGE, apres 2 tirs, il meurt", font, BLANC, [400, 250 + h/2])
+    text_center(ecran, "Ceci est un monstre VERT, apres 3 tirs, il meurt", font, BLANC, [400, 350 + h/2])
+    
+    
+    texte_start = font_grand.render("Click pour commencer", True, ROUGE)
+    
+    text_blink += 1
+    if text_blink < 30:
+        blit_center(ecran, texte_start, [350, 450])
+    elif text_blink == 60:
+        text_blink = 0
+    print(text_blink)
+    
+    
+    
+        
                    
     pygame.display.flip()
     
     clock.tick(60)
+
+OBJECTIF = 2500
 
 #variable
 a=600
@@ -167,7 +188,7 @@ while fini == 0:
             
         
         elif event.type == pygame.KEYDOWN:
-            print("coucou", event.key)
+            print("ta guele andrea", event.key)
             if event.key == SPACE:
                 nouveau_missile = Missile()
                 nouveau_missile.x = a
@@ -219,7 +240,7 @@ while fini == 0:
         m = Monstre()
         m.x = 10
         m.y = 0
-        m.vie = 3
+        m.vie = randint(0, 3)
         les_monstres.append(m)
         compteur_apparition = 0
     
@@ -265,13 +286,14 @@ while fini == 0:
                     corbeille_missile.append(missile)
                 else:
                     m.vie-=1
+                    score+=10
                     corbeille_missile.append(missile)
     
     for m in corbeille:
         if m in les_monstres:
             les_monstres.remove(m)
             score += 10
-        if score >= 2500:
+        if score >= OBJECTIF:
             gagne=1
             fini=1
             perdu = 0
@@ -324,7 +346,7 @@ while fini == 0:
     
     # pygame.draw.polygon(ecran, ROUGE, [[0,50], [100,0], [100,100]])
     if sens == -1:
-        ecran.blit(image_perso_tournee, [a, b])
+        blit_center(image_perso_tournee, [a, b], True)
     else:  
         ecran.blit(image_perso_tournee, [a, b])
 
