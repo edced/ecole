@@ -32,6 +32,9 @@ monstre_vert = pygame.image.load('monstre_vert.png').convert_alpha()
 monstre_petit_vert = pygame.transform.rotozoom(monstre_vert, 360, 0.09)
 font = pygame.font.SysFont('Calibri', 25)
 font_grand = pygame.font.SysFont('Calibri', 50)
+tir_son = pygame.mixer.music.load('PEW.mp3')
+
+# ISSUE: code do not start with ENTER
 
 # fonction
 def blit_center(surface, image, pos, centre_y=True):
@@ -190,6 +193,9 @@ while fini == 0:
         elif event.type == pygame.KEYDOWN:
             print("ta guele andrea", event.key)
             if event.key == SPACE:
+
+                pygame.mixer.music.play()
+                
                 nouveau_missile = Missile()
                 nouveau_missile.x = a
                 nouveau_missile.y = b
@@ -278,16 +284,40 @@ while fini == 0:
             bx = missile.x
             by = missile.y
             bL, bH = 30, 10
+            
+            # question: (inversion logique)
+            # if a < 5:
+            #    ...
+            # else:
+            #    print(coco)
+            # dans quel cas sera affiché coco ? if not(a < 5) si a n'est pas < 5
+            # comment rephraser ça dans utiliser le terme "pas" ?
+            # if a >= 5
+            
+            # question: 
+            # if a < 5 or b < 2:
+            #    ...
+            # else
+            #     print(coco)
+            # dans quel cas sera affiché coco ?
+            
+            
+            
+            #fonction
+            #if collision(m.x, m.y, monstre_petit_rouge.get_width(), monstre_petit_rouge.get_height(),
+            #             missile.x, missile.y, 30, 10):
             if bx > x + L or bx + bL < x or by > y + H or by + bH < y:
                 ...
             else:
+                
                 if m.vie == 1:
                     corbeille.append(m)
                     corbeille_missile.append(missile)
                 else:
-                    m.vie-=1
-                    score+=10
+                    m.vie -= 1
+                    score += 10
                     corbeille_missile.append(missile)
+                print("touché")
     
     for m in corbeille:
         if m in les_monstres:
