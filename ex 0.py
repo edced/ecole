@@ -52,7 +52,7 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
     blit_center(surface, image, pos, centre_y)
 
 
-# écran d'introduction des ennemis
+# Ã©cran d'introduction des ennemis
 text_blink = 0
 clock = pygame.time.Clock()
 fini = 0
@@ -175,7 +175,7 @@ for i in range(100):
 
 print(len(les_etoiles))
 
-#DeBUT
+#DÃ‰BUT
 clock = pygame.time.Clock()
 fini = 0
 perdu = 1
@@ -200,6 +200,7 @@ while fini == 0:
                 nouveau_missile.x = a
                 nouveau_missile.y = b
                 liste_missiles.append(nouveau_missile)
+                print("Nouveau missile")
             
     
     niveau += 10
@@ -290,8 +291,8 @@ while fini == 0:
             #    ...
             # else:
             #    print(coco)
-            # dans quel cas sera affiché coco ? if not(a < 5) si a n'est pas < 5
-            # comment rephraser ça dans utiliser le terme "pas" ?
+            # dans quel cas sera affichÃ© coco ? if not(a < 5) si a n'est pas < 5
+            # comment rephraser Ã§a dans utiliser le terme "pas" ?
             # if a >= 5
             
             # question: 
@@ -299,7 +300,9 @@ while fini == 0:
             #    ...
             # else
             #     print(coco)
-            # dans quel cas sera affiché coco ?
+            # dans quel cas sera affichÃ© coco ?
+            # if not(a < 5 or b < 2):
+            # if a >= 5 and b >= 2
             
             
             
@@ -309,15 +312,17 @@ while fini == 0:
             if bx > x + L or bx + bL < x or by > y + H or by + bH < y:
                 ...
             else:
-                
+                print("TouchÃ© un monstre dont la vie =", m.vie)
                 if m.vie == 1:
+                    print("Dead")                    
                     corbeille.append(m)
                     corbeille_missile.append(missile)
                 else:
                     m.vie -= 1
+                    print("New vie =", m.vie)
                     score += 10
                     corbeille_missile.append(missile)
-                print("touché")
+                
     
     for m in corbeille:
         if m in les_monstres:
@@ -329,7 +334,7 @@ while fini == 0:
             perdu = 0
     for m in corbeille_missile:
         if m in liste_missiles:
-            liste_missiles.remove(m)    
+            liste_missiles.remove(m)
         
     # DESSIN
     ecran.fill(NOIR)
@@ -434,7 +439,7 @@ if gagne == 1:
         
         ecran.fill(NOIR)
         
-        texte_gagne = ("Tu as gagné")
+        texte_gagne = ("Tu as gagnÃ©")
         image_gagne = font.render(texte_gagne, True, BLANC)
         ecran.blit(image_gagne, [300, 250])
                
