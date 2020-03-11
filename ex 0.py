@@ -16,7 +16,7 @@ BLANC = [255, 255, 255]
 ROUGE = [255, 0, 0]
 VERT = [0, 255, 0]
 BLEU = [0, 0, 255]
-
+ENTER = 13
 #ecran
 taille = [700, 500]
 ecran = pygame.display.set_mode(taille)
@@ -60,9 +60,17 @@ while fini == 0:
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            fini = 1
+            fini = 0
+            perdu = 1
+            gagne = 0
+            
+        
+        elif event.type == pygame.KEYDOWN:
+            print("ta guele andrea", event.key)
+            if event.key == ENTER:
+                fini=1
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            fini = 1
+            fini = 1  
     
     ecran.fill(NOIR)
     
@@ -80,12 +88,13 @@ while fini == 0:
     
     texte_start = font_grand.render("Click pour commencer", True, ROUGE)
     
+    
+    
     text_blink += 1
     if text_blink < 30:
         blit_center(ecran, texte_start, [350, 450])
     elif text_blink == 60:
         text_blink = 0
-    print(text_blink)
     
     
     
@@ -247,7 +256,7 @@ while fini == 0:
         m = Monstre()
         m.x = 10
         m.y = 0
-        m.vie = randint(0, 3)
+        m.vie = randint(1, 3)
         les_monstres.append(m)
         compteur_apparition = 0
     
