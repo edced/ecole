@@ -32,9 +32,8 @@ monstre_vert = pygame.image.load('monstre_vert.png').convert_alpha()
 monstre_petit_vert = pygame.transform.rotozoom(monstre_vert, 360, 0.09)
 font = pygame.font.SysFont('Calibri', 25)
 font_grand = pygame.font.SysFont('Calibri', 50)
-tir_son = pygame.mixer.music.load('PEW.mp3')
 
-# ISSUE: code do not start with ENTER
+tir_son = pygame.mixer.Sound("test_PEW.wav")
 
 # fonction
 def blit_center(surface, image, pos, centre_y=True):
@@ -66,8 +65,7 @@ while fini == 0:
             
         
         elif event.type == pygame.KEYDOWN:
-            print("ta guele andrea", event.key)
-            if event.key == ENTER:
+            if event.key == ENTER:  # pygame.K_RETURN
                 fini=1
         elif event.type == pygame.MOUSEBUTTONDOWN:
             fini = 1  
@@ -203,7 +201,7 @@ while fini == 0:
             print("ta guele andrea", event.key)
             if event.key == SPACE:
 
-                pygame.mixer.music.play()
+                tir_son.play()
                 
                 nouveau_missile = Missile()
                 nouveau_missile.x = a
