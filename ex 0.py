@@ -17,6 +17,7 @@ ROUGE = [255, 0, 0]
 VERT = [0, 255, 0]
 BLEU = [0, 0, 255]
 ENTER = 13
+M = 59
 #ecran
 taille = [700, 500]
 ecran = pygame.display.set_mode(taille)
@@ -33,7 +34,8 @@ monstre_petit_vert = pygame.transform.rotozoom(monstre_vert, 360, 0.09)
 font = pygame.font.SysFont('Calibri', 25)
 font_grand = pygame.font.SysFont('Calibri', 50)
 
-tir_son = pygame.mixer.Sound("test_PEW.wav")
+tir_son = pygame.mixer.Sound("PEW.wav")
+son = 1
 
 # fonction
 def blit_center(surface, image, pos, centre_y=True):
@@ -67,6 +69,9 @@ while fini == 0:
         elif event.type == pygame.KEYDOWN:
             if event.key == ENTER:  # pygame.K_RETURN
                 fini=1
+            if event.key == M:
+                son = 0
+            
         elif event.type == pygame.MOUSEBUTTONDOWN:
             fini = 1  
     
@@ -82,7 +87,7 @@ while fini == 0:
     text_center(ecran, "Ceci est un monstre ROUGE, apres 1 tir, il meurt", font, BLANC, [400, 150 + h/2])
     text_center(ecran, "Ceci est un monstre ORANGE, apres 2 tirs, il meurt", font, BLANC, [400, 250 + h/2])
     text_center(ecran, "Ceci est un monstre VERT, apres 3 tirs, il meurt", font, BLANC, [400, 350 + h/2])
-    
+    text_center(ecran, "appuie sur 'm' pour enlever le son du jeu", font, BLANC, [475, 480])
     
     texte_start = font_grand.render("Click pour commencer", True, ROUGE)
     
@@ -199,9 +204,12 @@ while fini == 0:
         
         elif event.type == pygame.KEYDOWN:
             print("ta guele andrea", event.key)
+            if event.key == M:
+                son = 0            
+            
             if event.key == SPACE:
-
-                tir_son.play()
+                if son == 1:
+                    tir_son.play()
                 
                 nouveau_missile = Missile()
                 nouveau_missile.x = a
