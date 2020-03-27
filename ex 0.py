@@ -70,7 +70,10 @@ while fini == 0:
             if event.key == ENTER:  # pygame.K_RETURN
                 fini=1
             if event.key == M:
-                son = 0
+                if son == 0:
+                    son = 1
+                if son == 1:
+                    son = 0
             
         elif event.type == pygame.MOUSEBUTTONDOWN:
             fini = 1  
@@ -205,7 +208,11 @@ while fini == 0:
         elif event.type == pygame.KEYDOWN:
             print("ta guele andrea", event.key)
             if event.key == M:
-                son = 0            
+                if son == 0:
+                    son = 1
+                elif son == 1:
+                    son = 0
+                    
             
             if event.key == SPACE:
                 if son == 1:
