@@ -21,3 +21,4 @@ def ChangeHex(n):
             print("E"),
         if (x == 15):
             print ("F"),
+#source https://stackoverflow.com/questions/5796238/python-convert-decimal-to-hex

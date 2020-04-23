@@ -11,4 +11,6 @@ if __name__ == '__main__':
     print(decimalToBinary(1)) 
     print(decimalToBinary(18)) 
     print(decimalToBinary(7)) 
-    
+
+
+#source https://www.geeksforgeeks.org/python-program-to-covert-decimal-to-binary-number/
