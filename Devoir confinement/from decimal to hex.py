@@ -8,17 +8,17 @@ def ChangeHex(n):
         ChangeHex( n / 16 )
         x =(n%16)
         if (x < 10):
-            print("x"), 
+            print("x") 
         if (x == 10):
-            print("A"),
+            print("A")
         if (x == 11):
-            print("B"),
+            print("B")
         if (x == 12):
-            print("C"),
+            print("C")
         if (x == 13):
-            print("D"),
+            print("D")
         if (x == 14):
-            print("E"),
+            print("E")
         if (x == 15):
-            print ("F"),
+            print ("F")
 #source https://stackoverflow.com/questions/5796238/python-convert-decimal-to-hex

@@ -14,24 +14,26 @@ def print(*a, **b):
 fini = 1
 ENTER = 13
 
-while fini == 1:
+if fini == 1:
     print("1. a bit is the smallest unit of data on a pc. Source: https://whatis.techtarget.com/definition/bit-binary-digit")
-    print("press enter to continue")
     fini = 0
-while fini == 0:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == ENTER:  # pygame.K_RETURN
-                fini = 1            
-while fini == 1:
-    print("2. In most computer systems, a byte is a unit of data that is eight binary digits long. Source: https://searchstorage.techtarget.com/definition/byte")
+if fini == 0:
     print("press enter to continue")
-    fini = 0
-while fini == 0:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == ENTER:  # pygame.K_RETURN
                 fini = 1
+
+if fini == 1:
+    print("2. In most computer systems, a byte is a unit of data that is eight binary digits long. Source: https://searchstorage.techtarget.com/definition/byte")
+    print("press enter to continue")
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == ENTER:  # pygame.K_RETURN
+                fini = 0
+                
+
 while fini == 1:
     print("3. 0, 1, 10, 11, 100, 101, 111, 1000, 1001, 1010, 1011, 1100 1101 1110 1111 10000 10001 10010 10100 10101 10111 11000 11001 11010 11011 11100 11101 11110 11111 100000 100001 100010 100011 100100 100101 100110 100111 101000. Source: https://www.convertbinary.com/numbers/    ps: J'ai pas vraiment compris comment faire")
     print("press enter to continue")
