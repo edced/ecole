@@ -17,7 +17,7 @@ ROUGE = [255, 0, 0]
 VERT = [0, 255, 0]
 BLEU = [0, 0, 255]
 ENTER = 13
-M = 59
+M = 109
 #ecran
 taille = [700, 500]
 ecran = pygame.display.set_mode(taille)
@@ -53,7 +53,7 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
     blit_center(surface, image, pos, centre_y)
 
 
-# écran d'introduction des ennemis
+# écran d'intro
 text_blink = 0
 clock = pygame.time.Clock()
 fini = 0
@@ -67,12 +67,13 @@ while fini == 0:
             
         
         elif event.type == pygame.KEYDOWN:
+            print("son", son)
             if event.key == ENTER:  # pygame.K_RETURN
                 fini=1
             if event.key == M:
                 if son == 0:
                     son = 1
-                if son == 1:
+                else:
                     son = 0
             
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -91,7 +92,7 @@ while fini == 0:
     text_center(ecran, "Ceci est un monstre ORANGE, apres 2 tirs, il meurt", font, BLANC, [400, 250 + h/2])
     text_center(ecran, "Ceci est un monstre VERT, apres 3 tirs, il meurt", font, BLANC, [400, 350 + h/2])
     text_center(ecran, "appuie sur 'm' pour enlever le son du jeu", font, BLANC, [475, 480])
-    
+
     texte_start = font_grand.render("Click pour commencer", True, ROUGE)
     
     
@@ -131,6 +132,7 @@ temps_attente = 1
 QQQ = 97
 SHIFT = 304
 SPACE= 32
+M=109
 clock = pygame.time.Clock()
 
 
@@ -207,13 +209,7 @@ while fini == 0:
         
         elif event.type == pygame.KEYDOWN:
             print("ta guele andrea", event.key)
-            if event.key == M:
-                if son == 0:
-                    son = 1
-                elif son == 1:
-                    son = 0
-                    
-            
+            print("son", son)
             if event.key == SPACE:
                 if son == 1:
                     tir_son.play()
