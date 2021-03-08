@@ -67,15 +67,15 @@ while fini == 0:
             
         
         elif event.type == pygame.KEYDOWN:
-            print("son", son)
+            
             if event.key == ENTER:  # pygame.K_RETURN
                 fini=1
             if event.key == M:
                 if son == 0:
                     son = 1
-                else:
+                elif son == 1:
                     son = 0
-            
+            print("son", son)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             fini = 1  
     
@@ -91,8 +91,11 @@ while fini == 0:
     text_center(ecran, "Ceci est un monstre ROUGE, apres 1 tir, il meurt", font, BLANC, [400, 150 + h/2])
     text_center(ecran, "Ceci est un monstre ORANGE, apres 2 tirs, il meurt", font, BLANC, [400, 250 + h/2])
     text_center(ecran, "Ceci est un monstre VERT, apres 3 tirs, il meurt", font, BLANC, [400, 350 + h/2])
-    text_center(ecran, "appuie sur 'm' pour enlever le son du jeu", font, BLANC, [475, 480])
-
+    text_center(ecran, "Y a-t-il du son (appuie sur M):", font, BLANC, [500, 480])
+    if son == 0:
+        text_center(ecran, "NON", font, ROUGE, [675, 480])
+    elif son == 1:
+        text_center(ecran, "OUI", font, VERT, [675, 480])
     texte_start = font_grand.render("Click pour commencer", True, ROUGE)
     
     
