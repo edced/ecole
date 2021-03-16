@@ -75,7 +75,7 @@ while fini == 0:
                     son = 1
                 elif son == 1:
                     son = 0
-            print("son", son)
+            print("DEBUG:son", son)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             fini = 1  
     
@@ -193,7 +193,7 @@ for i in range(100):
     inconnu.y = randint(0,500)
     les_etoiles.append(inconnu)
 
-print(len(les_etoiles))
+print("DEBUG Star #", len(les_etoiles))
 
 #DÉBUT
 clock = pygame.time.Clock()
@@ -211,8 +211,7 @@ while fini == 0:
             
         
         elif event.type == pygame.KEYDOWN:
-            print("ta guele andrea", event.key)
-            print("son", son)
+            print("DEBUG : keypress", event.key)
             if event.key == SPACE:
                 if son == 1:
                     tir_son.play()
@@ -221,7 +220,7 @@ while fini == 0:
                 nouveau_missile.x = a
                 nouveau_missile.y = b
                 liste_missiles.append(nouveau_missile)
-                print("Nouveau missile")
+                print("DEBUG : New Missile")
             
     
     niveau += 10
@@ -333,14 +332,14 @@ while fini == 0:
             if bx > x + L or bx + bL < x or by > y + H or by + bH < y:
                 ...
             else:
-                print("Touché un monstre dont la vie =", m.vie)
+                print("DEBUG : hit monster with ", m.vie, "live(s)")
                 if m.vie == 1:
-                    print("Dead")                    
+                    print("DEBUG : Dead")                    
                     corbeille.append(m)
                     corbeille_missile.append(missile)
                 else:
                     m.vie -= 1
-                    print("New vie =", m.vie)
+                    print("DEBUG New life =", m.vie)
                     score += 10
                     corbeille_missile.append(missile)
                 
