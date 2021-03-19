@@ -24,7 +24,7 @@ ecran = pygame.display.set_mode(taille)
 
 #image
 image_perso = pygame.image.load('cessau.png').convert_alpha()
-image_perso_tournee = pygame.transform.rotozoom(image_perso, 180, 0.5)
+image_perso_tournee = pygame.transform.rotozoom(image_perso, 90, 0.5)
 monstre = pygame.image.load('monstre.png').convert_alpha()
 monstre_petit = pygame.transform.rotozoom(monstre, 360, 0.09)
 monstre_rouge = pygame.image.load('monstre_rouge.png').convert_alpha()
@@ -53,7 +53,7 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
     blit_center(surface, image, pos, centre_y)
 
 
-# écran d'intro
+# ecran d'intro
 text_blink = 0
 clock = pygame.time.Clock()
 fini = 0
@@ -117,8 +117,8 @@ while fini == 0:
 OBJECTIF = 2500
 
 #variable
-a=600
-b=80
+a=350
+b=450
 r=5
 score = 0
 class Missile:
@@ -228,26 +228,27 @@ while fini == 0:
     # TICK
     pressed = pygame.key.get_pressed()
     if pressed[QQQ]:
-        b = b - r 
-    if b < 20:
-        b = 20
-    if b > 680:	
-        b = 680
+        a = a - r 
+    if a < 20:
+        a = 20
+    if a > 680:	
+        a = 680
     if pressed[100]:
-        b = b + r
+        a = a + r
     buttons = pygame.mouse.get_pressed() 
-    if b > 450:
-        b=450
+    if a > 450:
+        a=350
         
-    elif b < 0:
-        b=0
+    elif a < 0:
+        a=0
     
     corbeille = []
     for missile in liste_missiles: #pour chacun des missilie dans la liste missile:
-        missile.x -= 10
+        missile.y -= 10
         
-        if missile.x < 0:
+        if missile.y < 0:
             corbeille.append(missile) # supprimer missile
+            print("DEBUG: missile destroyed")
             
     for x in corbeille:
         liste_missiles.remove(x)
@@ -288,10 +289,10 @@ while fini == 0:
 
         
     for m in les_monstres:
-        if m.y>450:
-            m.x+=50
-            m.y=0
-        if m.x > 525:
+        if m.x>100:
+            m.y+=50
+            m.x=0
+        if m.y > 350:
             fini=1
     
     corbeille = []
@@ -359,9 +360,9 @@ while fini == 0:
     # DESSIN
     ecran.fill(NOIR)
     for missile in liste_missiles:
-        pygame.draw.rect(ecran, BLANC, [missile.x, missile.y, 30, 10]) 
+        pygame.draw.rect(ecran, BLANC, [missile.x, missile.y, 10, 30]) 
     
-    pygame.draw.rect(ecran, ROUGE, [545, 0, 1, 500])
+    pygame.draw.rect(ecran, ROUGE, [545, 0, 1, 350])
     #future alien    
     #pygame.draw.rect(ecran, ROUGE, [500,200, 20,40])
     
@@ -400,7 +401,7 @@ while fini == 0:
     ecran.blit(image_score, [700-125, 0])
     
     # pygame.draw.polygon(ecran, ROUGE, [[0,50], [100,0], [100,100]])
-    if sens == -1:
+    if sens != 1:
         blit_center(image_perso_tournee, [a, b], True)
     else:  
         ecran.blit(image_perso_tournee, [a, b])
