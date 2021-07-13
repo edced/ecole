@@ -87,6 +87,7 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
 text_blink = 0
 clock = pygame.time.Clock()
 end = 0
+l,h = G_GHOST.get_size()
 
 #game intro
 while end == 0:
@@ -96,10 +97,10 @@ while end == 0:
         if event.type == pygame.QUIT:
             end = 0
         elif event.type == pygame.KEYDOWN:
-            print("DEBUG: Key number", event.key, "pressed")
-            if event.key == ENTER or SPACE:  # pygame.K_RETURN
                 end = 1
-        elif event.type == pygame.MOUSEBUTTONUP:
+                print("DEBUG: Key number", event.key, "was pressed ")
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
                 end = 1
                 print("DEBUG: mouse pressed")
     
@@ -111,8 +112,22 @@ while end == 0:
     screen.blit(R_GHOST, [100, 150])
     #text
     intro_text = BIG_FONT.render("Space Invader (r)", True, WHITE) 
+    texte_start = BIG_FONT.render("Press any key to start", True, RED)
     blit_center(screen, intro_text, [350, 50])
     
+
+
+    text_center(screen, "This is a red monster, he dies in one hit", FONT, WHITE, [355, 150 + h/2])
+    text_center(screen, "This is a yellow monster, he dies in two hits", FONT, WHITE, [378, 250 + h/2])
+    text_center(screen, "This is a green monster, he dies in three hits", FONT, WHITE, [380, 350 + h/2])
+    
+
+    text_blink += 1
+    if text_blink < 50:
+        blit_center(screen, texte_start, [350, 450])
+    elif text_blink == 100:
+        text_blink = 0
+
     pygame.display.flip()
     
     clock.tick(60)
