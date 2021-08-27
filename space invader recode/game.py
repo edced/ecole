@@ -81,6 +81,12 @@ def text_center(surface, texte, font, couleur, pos, centre_y=True):
 
 
 
+
+
+
+
+
+
 # ###INTRO
 
 #vars
